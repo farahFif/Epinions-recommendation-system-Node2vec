@@ -1,0 +1,9 @@
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /home/farah/IdeaProjects/Bdata_Assignment2/project/target/.sbt-compilation-infos/bdata_assignment2-compile/.sbt-idea-lock ...[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/Bdata_Assignment2/src/main/scala/Node2vec.scala:53:40: ']' expected but ')' found.[0m
+[0m[[0m[31merror[0m] [0m[0m  def create_batch(data : RDD[(Int,Int)){[0m
+[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/Bdata_Assignment2/src/main/scala/Node2vec.scala:57:3: ';' expected but 'def' found.[0m
+[0m[[0m[31merror[0m] [0m[0m  def create_embedding_matrix(): Unit ={[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /home/farah/IdeaProjects/Bdata_Assignment2/project/target/.sbt-compilation-infos/bdata_assignment2-compile/.sbt-idea-lock.[0m

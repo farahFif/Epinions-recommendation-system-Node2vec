@@ -23,7 +23,6 @@ object   Node2vec {
       .config("spark.master", "local")
       .getOrCreate()
 
-    val sc : SparkContext =  new SparkContext()
     val data: RDD[(Int, Int)] = read_data("./train_epin.csv",spark)
 
 

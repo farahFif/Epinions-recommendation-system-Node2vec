@@ -10,6 +10,9 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions.udf
 import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
+import breeze.linalg._
+import breeze.numerics._
+import org.apache.spark.mllib.random.UniformGenerator
 
 object   Node2vec {
 
@@ -40,7 +43,10 @@ object   Node2vec {
 
    // var emb_in_broadcast = sc.broadcast(emb_in)
    // var emb_out_broadcast = sc.broadcast(emb_out)
+    val k: DenseMatrix[Double] = create_embedding_matrix(emb_dim,total_nodes)
 
+    print("fffffffffffff", k(0,1))
+    create_batchs(data, batch_size)
   }
   def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {
     spark.read.format("csv")
@@ -63,14 +69,35 @@ object   Node2vec {
 
 
 
-  def create_batch(data : RDD[(Int,Int)]): Unit ={
+  def create_batchs(data : RDD[(Int,Int)], batche_size : Int): Unit ={
+
+    //val data_size = data.map(l => l.toString().length).collect()
+
+    val index = data.zipWithIndex()
+    val new_data = index.map(x => (x._2,x._1))
+
+    val nb_batch = (new_data.count()/ batche_size).toInt
+
+    val batchs = for (i <- 0 until nb_batch)
+      yield new_data.filter(i == _._1 / nb_batch).map(x => (i,x._2))
+
+    //batchs.foreach(rdd => for ((k,v) <- rdd.collect) printf("key: %s, value: %s\n", k, v))
+  }
+
+
+
+  def create_embedding_matrix(emb_dim : Int, total_nodes: Int):DenseMatrix[Double] ={
+    val rand = new UniformGenerator()
+    val vals = Array.fill(emb_dim * total_nodes)(rand.nextValue())
+     val mat = new DenseMatrix(emb_dim,total_nodes, vals)
+    return mat
 
   }
 
-  def create_embedding_matrix(emb_dim : Int, total_nodes: Int): Unit ={
+  def calculate_gradients(batch : RDD[(Int,(Int,Int))]): Unit ={
 
+    
   }
-
   def estimate_gradients_for_edge(
                                    source: Int,
                                    destination: Int,

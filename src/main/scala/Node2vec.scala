@@ -47,6 +47,8 @@ object   Node2vec {
 
     print("fffffffffffff", k(0,1))
     create_batchs(data, batch_size)
+
+
   }
   def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {
     spark.read.format("csv")
@@ -96,7 +98,23 @@ object   Node2vec {
 
   def calculate_gradients(batch : RDD[(Int,(Int,Int))]): Unit ={
 
+    val grads = estimate_gradients_for_edge(in , out, emb_in,emb_out)
+    val in_grad_rdd = grads.map(_._1) // RDD[(Int, DenseVector)]
+    val out_grad_rdd = grads.map(_._2) // RDD[(Int, DenseVector)]
 
+    val in_grads_local = in_grad_rdd // has non unique keys
+      .reduceByKey(_+_) // all keys are uique
+      .collectAsMap() // dowload all the gradients to the driver and convert to HashMap (dictionary)
+
+    val out_grads_local = out_grad_rdd
+      .reduceByKey(_+_)
+      .collectAsMap()
+
+    for (k <- in_grads_local.keys) {
+      /*
+       * Update weights in column k of emb_in
+       */
+    }
   }
 
 
@@ -126,7 +144,9 @@ object   Node2vec {
     ((source, in_grad),(destination, out_grad))
   }
 
-  def update_gradients(): Unit ={
+  def update_gradients(batchs : RDD[RDD[(Int,Int)]],emb_in: DenseMatrix[Float], emb_out: DenseMatrix[Float]): Unit ={
+
+
 
   }
 }

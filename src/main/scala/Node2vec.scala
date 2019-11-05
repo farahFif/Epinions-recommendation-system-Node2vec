@@ -96,7 +96,14 @@ object   Node2vec {
 
   def calculate_gradients(batch : RDD[(Int,(Int,Int))]): Unit ={
 
-    
+
+  }
+
+
+  def calculate_deriv(  emb_in: DenseMatrix[Float], emb_out: DenseMatrix[Float]): Unit ={
+
+
+
   }
   def estimate_gradients_for_edge(
                                    source: Int,
@@ -108,16 +115,18 @@ object   Node2vec {
     val in = emb_in(::, source)
     val out = emb_out(::, destination)
 
-    /*
-     * Estimate gradients
-     */
-
+    val in_grad = out - out /(1 - sigmoid(in.t * out))
+    val out_grad = in - in /(1- sigmoid(in.t * out))
     // return a tuple
     // Tuple((Int, DenseVector), (Int, DenseVector))
     // this tuple contains sparse gradients
     // in_grads is vector of gradients for
     // a node with id = source
     //((source, in_grads), (destination, out_grads))
+    ((source, in_grad),(destination, out_grad))
   }
 
+  def update_gradients(): Unit ={
+
+  }
 }

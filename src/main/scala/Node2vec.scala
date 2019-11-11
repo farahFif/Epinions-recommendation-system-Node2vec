@@ -37,7 +37,7 @@ object   Node2vec {
 
     val total_nodes = 40334
     val emb_dim = 50
-    val epoch = 20
+    val epoch = 1
     val learning_rate = 1.0
     val batch_size = 10000
     val neg_samples = 20
@@ -52,8 +52,9 @@ object   Node2vec {
     val k: DenseMatrix[Float] = create_embedding_matrix(emb_dim,total_nodes)
 
      val seq : IndexedSeq[RDD[(Int, (Int, Int))]]  = create_batchs(data, batch_size)
-     seq.foreach(rdd => for ((k,v) <- rdd.collect) {
 
+    for(k <- 0 to epoch) {
+     seq.foreach(rdd => for ((k,v) <- rdd.collect) {
       var emb_in_broadcast = sc.broadcast(emb_in)
       var emb_out_broadcast = sc.broadcast(emb_out)
       var (in_grads, out_grads ) = estimate_gradients_for_edge(v._1,v._2,emb_in_broadcast.value,emb_out_broadcast.value)
@@ -90,13 +91,15 @@ object   Node2vec {
        update_gradients(new_mat_in,new_mat_out,emb_in,emb_out,learning_rate)
 
     })
+    }
 
-    //************************** End of gradient decent *****************
-     //println("embin \n ", emb_in)
-    estimate_neighbors(2,emb_in,emb_out)
-
+    //************************** Estimation *****************
+    val node_nb = 2
+    var result : Seq[(Int, Float)] = estimate_topten_neighbors(2,emb_in,emb_out)
+    sc.parallelize(result).map(x => (node_nb, x._1)).saveAsTextFile("topten")
 
   }
+
   def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {
     spark.read.format("csv")
       // the original data is store in CSV format
@@ -118,13 +121,11 @@ object   Node2vec {
 
 
   def create_batchs(data : RDD[(Int,Int)], batche_size : Int):  IndexedSeq[RDD[(Int, (Int, Int))]]  ={
-    //val data_size = data.map(l => l.toString().length).collect()
     val index = data.zipWithIndex()
     val new_data = index.map(x => (x._2,x._1))
     val nb_batch = (new_data.count()/ batche_size).toInt
     val batchs = for (i <- 0 until nb_batch)
       yield new_data.filter(i == _._1 / nb_batch).map(x => (i,x._2))
-    //batchs.foreach(rdd => for ((k,v) <- rdd.collect) printf("key: %s, value: %s\n", k, v))
     return batchs
   }
 
@@ -134,14 +135,6 @@ object   Node2vec {
     val vals = Array.fill(emb_dim * total_nodes)(rand.nextValue().toFloat)
      val mat = new DenseMatrix(emb_dim,total_nodes, vals)
     return mat
-  }
-
-  def update_weights(grad_in : (Int, DenseVector[Float]), lr : Double,grad_out : (Int, DenseVector[Float]), emb_in: DenseMatrix[Float],
-                       emb_out: DenseMatrix[Float]): Unit ={
-
-     //emb_in -= grad_in* lr
-     //emb_out -= grad_out * lr
-
   }
 
   def estimate_gradients_for_edge(
@@ -154,8 +147,8 @@ object   Node2vec {
     val in = emb_in(::, source)
     val out = emb_out(::, destination)
     val neg: Int  = -1
-    val in_grad = out * ( sigmoid(in.t * out) * neg)
-    val out_grad = in * ( sigmoid(in.t * out)* neg)
+    val in_grad = out * ( sigmoid(in.t * out) * neg) * exp(- in.t * out )
+    val out_grad = in * ( sigmoid(in.t * out)* neg) * exp(- in.t * out )
     // return a tuple
     // Tuple((Int, DenseVector), (Int, DenseVector))
     // this tuple contains sparse gradients
@@ -175,8 +168,8 @@ object   Node2vec {
     val in = emb_in(::, source)
     val out = emb_out(::, destination)
 
-    val in_grad_neg = out * (1+ sigmoid(in.t * out))
-    val out_grad_neg = in * ( 1 + sigmoid(in.t * out))
+    val in_grad_neg = out * (sigmoid(in.t * out)* exp(- in.t * out ))
+    val out_grad_neg = in * ( 1 + sigmoid(in.t * out)* exp(- in.t * out ))
 
     // return a tuple
     // Tuple((Int, DenseVector), (Int, DenseVector))
@@ -190,17 +183,13 @@ object   Node2vec {
   def update_gradients(mat_in: DenseMatrix[Float],mat_out:DenseMatrix[Float],emb_in: DenseMatrix[Float],
                        emb_out: DenseMatrix[Float], lr: Double): Unit ={
 
-    //println("maaatin", mat_in(0,1))
     emb_in -= mat_in
     emb_out -= mat_out
-
   }
 
-  def estimate_neighbors(node : Int, emb_in: DenseMatrix[Float],
-                         emb_out: DenseMatrix[Float]): Unit ={
-    var result = new Array[(Int,Float)](40333)
+  def estimate_topten_neighbors(node : Int, emb_in: DenseMatrix[Float],
+                         emb_out: DenseMatrix[Float]): Seq[(Int, Float)] ={
     var resultats = Map[Int, Float]()
- //   val result = emb_in.t * emb_out
     for(i <- 0 to 40332){
       if(i == node){
 
@@ -210,6 +199,6 @@ object   Node2vec {
       }
 
     }
-    resultats
+    resultats.take(10).toSeq.sortBy(_._1).reverse
   }
 }

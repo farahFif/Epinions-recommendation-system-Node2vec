@@ -48,7 +48,7 @@ object   Node2vec {
     var emb_in = create_embedding_matrix(emb_dim, total_nodes)
     var emb_out = create_embedding_matrix(emb_dim, total_nodes)
 
-
+// *********************************** epochs **********************
     val k: DenseMatrix[Float] = create_embedding_matrix(emb_dim,total_nodes)
 
      val seq : IndexedSeq[RDD[(Int, (Int, Int))]]  = create_batchs(data, batch_size)
@@ -92,7 +92,8 @@ object   Node2vec {
     })
 
     //************************** End of gradient decent *****************
-
+     //println("embin \n ", emb_in)
+    estimate_neighbors(2,emb_in,emb_out)
 
 
   }
@@ -195,7 +196,20 @@ object   Node2vec {
 
   }
 
-  def estimate_neighbors(): Unit ={
+  def estimate_neighbors(node : Int, emb_in: DenseMatrix[Float],
+                         emb_out: DenseMatrix[Float]): Unit ={
+    var result = new Array[(Int,Float)](40333)
+    var resultats = Map[Int, Float]()
+ //   val result = emb_in.t * emb_out
+    for(i <- 0 to 40332){
+      if(i == node){
 
+      }else{
+
+         resultats += (i -> emb_in(::,node).t * emb_out(::,i))
+      }
+
+    }
+    resultats
   }
 }

@@ -20,7 +20,7 @@ def mean_average_precision(Prediction):
         value = Prediction[key]
         #Change map value
         #Go to def average_precision(element):
-        map.update({key:average_precision(value)/len(value)})
+        map.update({key:average_precision(value)})
     return map
 
 #START READING HERE

@@ -16,7 +16,10 @@ def mean_average_precision(Prediction):
     map = dict()
     # We go throuth dictionary keys
     for key in Prediction:
+        #Save current element of dict
         value = Prediction[key]
+        #Change map value
+        #Go to def average_precision(element):
         map.update({key:average_precision(value)/len(value)})
     return map
 
@@ -24,12 +27,14 @@ def mean_average_precision(Prediction):
 
 #Read test
 test = pd.read_csv('test_epin.csv', sep=',')
-#Read Result of prediction, read, (P.S. We schould change  ----- on name)
-train = pd.read_csv('-----', sep=',', header=None)
+#Read Result of prediction, read
+train = pd.read_csv('test_epin/part-00000', sep=',', header=None)
 
-#########To remove brackets and list
-#########train[0] = train[0].str.strip('List(')
-#########train[10] = train[10].str.strip(')')
+#To remove brackets and list
+train[0] = train[0].str.strip('(')
+train[1] = train[1].str.strip('(ArrayBuffer')
+train[10] = train[10].str.strip(')')
+
 
 #Transform into list of arrays. Example:
  #array([0, 7]),
@@ -52,8 +57,9 @@ for element in train_list:
     #lst = [3,8,5]
     #array([1, 0, 1])
     is_correct = np.array([item in actual_nodes for item in lst]).astype(int)
-        #We update dictionary, key source_node, value: array of relevence. Example: 0: ([1, 0, 1])
-       relevance.update({element[0]: np.array(is_correct)})
+    #We update dictionary, key source_node, value: array of relevence. Example: 0: ([1, 0, 1])
+    relevance.update({element[0]: np.array(is_correct)})
 #Go to def mean_average_precision(Prediction):
 map = mean_average_precision(relevance)
-print(map)
+map_1 = (sum(map.values()))/len(map)
+print(map_1)

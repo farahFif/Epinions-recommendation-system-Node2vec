@@ -23,8 +23,8 @@ test = pd.read_csv('test_epin.csv', sep=',')
 #Result of prediction, read, CHANGE  -----
 train = pd.read_csv('-----', sep=',', header=None)
 #To remove brackets and list
-train[0] = train[0].str.strip('List(')
-train[10] = train[10].str.strip(')')
+#train[0] = train[0].str.strip('List(')
+#train[10] = train[10].str.strip(')')
 #Transform into list of arrays
 train_list = train.values
 train_list = [item.astype(int) for item in train_list]

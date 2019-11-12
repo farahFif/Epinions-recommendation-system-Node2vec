@@ -12,29 +12,48 @@ def average_precision(element):
     return ap / gtp
 
 def mean_average_precision(Prediction):
+    # We create dict
     map = dict()
+    # We go throuth dictionary keys
     for key in Prediction:
         value = Prediction[key]
         map.update({key:average_precision(value)/len(value)})
     return map
 
+#START READING HERE
+
 #Read test
 test = pd.read_csv('test_epin.csv', sep=',')
-#Result of prediction, read, CHANGE  -----
+#Read Result of prediction, read, (P.S. We schould change  ----- on name)
 train = pd.read_csv('-----', sep=',', header=None)
+
 #To remove brackets and list
 #train[0] = train[0].str.strip('List(')
 #train[10] = train[10].str.strip(')')
-#Transform into list of arrays
+
+#Transform into list of arrays 
+ #array([0, 7]),
+ #array([0, 9]),
+ #array([ 1, 11]),
+ #array([ 1, 22])]
 train_list = train.values
 train_list = [item.astype(int) for item in train_list]
+
+#empty dict
 relevance = dict()
+#work with every row in train_list
 for element in train_list:
+    #take destination node from row
     lst = element[1:]
-    #filter current node in test_set
+    #searching current source_node in test set and making array of destination_nodes for him
     actual_nodes = test[test['source_node'] == element[0]]['destination_node'].values
-    #trying to find 'destination_node' values in test_data
+    #create array, we check if destination node exist in test array, if he exist 1, no 0. Example:
+    #actual_nodes = [1,2,3,4,5,6,7]
+    #lst = [3,8,5]
+    #array([1, 0, 1])
     is_correct = np.array([item in actual_nodes for item in lst]).astype(int)
+        #We update dictionary, key source_node, value: array of relevence. Example: 0: ([1, 0, 1])
        relevance.update({element[0]: np.array(is_correct)})
+#Go to def mean_average_precision(Prediction):
 map = mean_average_precision(relevance)
 print(map)

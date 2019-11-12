@@ -31,7 +31,7 @@ train = pd.read_csv('-----', sep=',', header=None)
 #########train[0] = train[0].str.strip('List(')
 #########train[10] = train[10].str.strip(')')
 
-#Transform into list of arrays 
+#Transform into list of arrays. Example:
  #array([0, 7]),
  #array([0, 9]),
  #array([ 1, 11]),

@@ -61,5 +61,5 @@ for element in train_list:
     relevance.update({element[0]: np.array(is_correct)})
 #Go to def mean_average_precision(Prediction):
 map = mean_average_precision(relevance)
-map_1 = (sum(map.values()))/len(map)
-print(map_1)
+map_1 = (sum(map.values()))/len(map)*100
+print("Model precision", map_1, "%")

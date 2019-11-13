@@ -111,8 +111,6 @@ object   Node2vec {
 
   }
 
-
-
   //****************************** FUNCTIONS**********************
 
   def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {

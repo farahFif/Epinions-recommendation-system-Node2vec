@@ -1,9 +1,126 @@
-[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /home/farah/IdeaProjects/Bdata_Assignment2/project/target/.sbt-compilation-infos/bdata_assignment2-compile/.sbt-idea-lock ...[0m
-[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/Bdata_Assignment2/src/main/scala/Node2vec.scala:53:40: ']' expected but ')' found.[0m
-[0m[[0m[31merror[0m] [0m[0m  def create_batch(data : RDD[(Int,Int)){[0m
-[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/Bdata_Assignment2/src/main/scala/Node2vec.scala:57:3: ';' expected but 'def' found.[0m
-[0m[[0m[31merror[0m] [0m[0m  def create_embedding_matrix(): Unit ={[0m
-[0m[[0m[31merror[0m] [0m[0m  ^[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
-[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /home/farah/IdeaProjects/Bdata_Assignment2/project/target/.sbt-compilation-infos/bdata_assignment2-compile/.sbt-idea-lock.[0m
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /home/farah/IdeaProjects/BigDataAssignment2/project/target/.sbt-compilation-infos/bigdataassignment2-compile/.sbt-idea-lock ...[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:1:8: not found: object breeze[0m
+[0m[[0m[31merror[0m] [0m[0mimport breeze.linalg.DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:2:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.log4j.{Level, Logger}[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:3:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.SparkContext[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:4:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.ml.Pipeline[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:5:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.ml.classification.LogisticRegression[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:6:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.ml.evaluation.{BinaryClassificationEvaluator, MulticlassClassificationEvaluator}[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:7:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.ml.feature._[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:8:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:9:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.rdd.RDD[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:10:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.sql._[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:11:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.sql.functions.udf[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:12:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.sql.types.{IntegerType, StructField, StructType}[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:13:8: not found: object breeze[0m
+[0m[[0m[31merror[0m] [0m[0mimport breeze.linalg._[0m
+[0m[[0m[31merror[0m] [0m[0m       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:14:8: not found: object breeze[0m
+[0m[[0m[31merror[0m] [0m[0mimport breeze.numerics._[0m
+[0m[[0m[31merror[0m] [0m[0m       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:15:12: object apache is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mimport org.apache.spark.mllib.random.UniformGenerator[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:23:5: not found: value Logger[0m
+[0m[[0m[31merror[0m] [0m[0m    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:23:51: not found: value Level[0m
+[0m[[0m[31merror[0m] [0m[0m    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:25:17: not found: value SparkSession[0m
+[0m[[0m[31merror[0m] [0m[0m    val spark = SparkSession[0m
+[0m[[0m[31merror[0m] [0m[0m                ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:31:14: not found: type SparkContext[0m
+[0m[[0m[31merror[0m] [0m[0m    val sc : SparkContext = spark.sparkContext[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:44:15: not found: type RDD[0m
+[0m[[0m[31merror[0m] [0m[0m    val data: RDD[(Int, Int)] = read_data("./train_epin.csv",spark)[0m
+[0m[[0m[31merror[0m] [0m[0m              ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:118:53: not found: type RDD[0m
+[0m[[0m[31merror[0m] [0m[0m  def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:118:38: not found: type SparkSession[0m
+[0m[[0m[31merror[0m] [0m[0m  def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {[0m
+[0m[[0m[31merror[0m] [0m[0m                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:53:22: not found: value DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m    var new_mat_in = DenseMatrix.zeros[Float](emb_dim, total_nodes)[0m
+[0m[[0m[31merror[0m] [0m[0m                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:54:23: not found: value DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m    var new_mat_out = DenseMatrix.zeros[Float](emb_dim, total_nodes)[0m
+[0m[[0m[31merror[0m] [0m[0m                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:147:64: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m  def create_embedding_matrix(emb_dim : Int, total_nodes: Int):DenseMatrix[Float] ={[0m
+[0m[[0m[31merror[0m] [0m[0m                                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:60:12: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m    val k: DenseMatrix[Float] = create_embedding_matrix(emb_dim,total_nodes)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:62:27: not found: type RDD[0m
+[0m[[0m[31merror[0m] [0m[0m     val seq : IndexedSeq[RDD[(Int, (Int, Int))]]  = create_batchs(data, batch_size)[0m
+[0m[[0m[31merror[0m] [0m[0m                          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:138:76: not found: type RDD[0m
+[0m[[0m[31merror[0m] [0m[0m  def create_batchs(data : RDD[(Int,Int)], batche_size : Int):  IndexedSeq[RDD[(Int, (Int, Int))]]  ={[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:138:28: not found: type RDD[0m
+[0m[[0m[31merror[0m] [0m[0m  def create_batchs(data : RDD[(Int,Int)], batche_size : Int):  IndexedSeq[RDD[(Int, (Int, Int))]]  ={[0m
+[0m[[0m[31merror[0m] [0m[0m                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:205:53: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m  def estimate_topten_neighbors(node : Int, emb_in: DenseMatrix[Float],[0m
+[0m[[0m[31merror[0m] [0m[0m                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:206:35: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m                         emb_out: DenseMatrix[Float],total_nodes:Int): Seq[(Int,Float)] ={[0m
+[0m[[0m[31merror[0m] [0m[0m                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:148:20: not found: type UniformGenerator[0m
+[0m[[0m[31merror[0m] [0m[0m    val rand = new UniformGenerator()[0m
+[0m[[0m[31merror[0m] [0m[0m                   ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:151:19: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m    val mat = new DenseMatrix(emb_dim,total_nodes, vals)[0m
+[0m[[0m[31merror[0m] [0m[0m                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:158:44: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m                                   emb_in: DenseMatrix[Float],[0m
+[0m[[0m[31merror[0m] [0m[0m                                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:159:45: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m                                   emb_out: DenseMatrix[Float][0m
+[0m[[0m[31merror[0m] [0m[0m                                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:179:44: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m                                   emb_in: DenseMatrix[Float],[0m
+[0m[[0m[31merror[0m] [0m[0m                                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:180:45: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m                                   emb_out: DenseMatrix[Float][0m
+[0m[[0m[31merror[0m] [0m[0m                                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:198:32: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m  def update_gradients(mat_in: DenseMatrix[Float],mat_out:DenseMatrix[Float],emb_in: DenseMatrix[Float],[0m
+[0m[[0m[31merror[0m] [0m[0m                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:198:59: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m  def update_gradients(mat_in: DenseMatrix[Float],mat_out:DenseMatrix[Float],emb_in: DenseMatrix[Float],[0m
+[0m[[0m[31merror[0m] [0m[0m                                                          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:198:86: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m  def update_gradients(mat_in: DenseMatrix[Float],mat_out:DenseMatrix[Float],emb_in: DenseMatrix[Float],[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/farah/IdeaProjects/BigDataAssignment2/src/main/scala/Node2vec.scala:199:33: not found: type DenseMatrix[0m
+[0m[[0m[31merror[0m] [0m[0m                       emb_out: DenseMatrix[Float], lr: Double): Unit ={[0m
+[0m[[0m[31merror[0m] [0m[0m                                ^[0m
+[0m[[0m[31merror[0m] [0m[0m41 errors found[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /home/farah/IdeaProjects/BigDataAssignment2/project/target/.sbt-compilation-infos/bigdataassignment2-compile/.sbt-idea-lock.[0m

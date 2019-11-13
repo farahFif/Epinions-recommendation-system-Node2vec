@@ -29,15 +29,23 @@ object   Node2vec {
       .getOrCreate()
 
     val sc : SparkContext = spark.sparkContext
+   // ************************ arguments  *******************
+    /*
+    val train_data = args(0)
+    val test_data = args(1)
+    val alpha = args(2)
+    val epochs_nb = args(3)
+    val nb_of_nodes_to_rate = args(4)
+
+     */
+
+    //***********************************************************
 
     val data: RDD[(Int, Int)] = read_data("./train_epin.csv",spark)
 
-
-    data.take(10).foreach(x => print(x))
-
     val total_nodes = 40334
     val emb_dim = 50
-    val epoch = 1
+    val epoch = 20
     val learning_rate = 1.0
     val batch_size = 10000
     val neg_samples = 20
@@ -48,7 +56,7 @@ object   Node2vec {
     var emb_in = create_embedding_matrix(emb_dim, total_nodes)
     var emb_out = create_embedding_matrix(emb_dim, total_nodes)
 
-// *********************************** epochs **********************
+    // *********************************** epochs **********************
     val k: DenseMatrix[Float] = create_embedding_matrix(emb_dim,total_nodes)
 
      val seq : IndexedSeq[RDD[(Int, (Int, Int))]]  = create_batchs(data, batch_size)
@@ -59,13 +67,12 @@ object   Node2vec {
       var emb_out_broadcast = sc.broadcast(emb_out)
       var (in_grads, out_grads ) = estimate_gradients_for_edge(v._1,v._2,emb_in_broadcast.value,emb_out_broadcast.value)
 
+     // estimating gradient of negative samples
      val random = new Random()
-      for(k <- 1 to 20){
-        var (neg_in, neg_out) = estimate_gradients_for_negative_samples(in_grads._1,random.nextInt(40334),emb_in_broadcast.value,emb_out_broadcast.value)
-         //print("leeeeeeenght",neg_in._2.length)
+      for(k <- 1 to neg_samples){
+        var (neg_in, neg_out) = estimate_gradients_for_negative_samples(in_grads._1,random.nextInt(total_nodes),emb_in_broadcast.value,emb_out_broadcast.value)
         in_grads._2 +=  neg_in._2
         out_grads._2 +=  neg_out._2
-
       }
 
       val in_grad_rdd = sc.parallelize(Array(in_grads).toSeq)
@@ -81,24 +88,32 @@ object   Node2vec {
 
      for (k <- in_grads_local.keys) {
         new_mat_in(::,k) := in_grads_local(k)
-       //print("3jeb",new_mat_in)
       }
 
        for (k <- out_grads_local.keys) {
          new_mat_out(::,k) := out_grads_local(k)
        }
 
+      // updating gradients
        update_gradients(new_mat_in,new_mat_out,emb_in,emb_out,learning_rate)
 
     })
     }
 
     //************************** Estimation *****************
-    val node_nb = 2
-    var result : Seq[(Int, Float)] = estimate_topten_neighbors(2,emb_in,emb_out)
-    sc.parallelize(result).map(x => (node_nb, x._1)).saveAsTextFile("topten")
+
+    val rdm = new Random()
+    val nodes =  1 to 100 map (_ => rdm.nextInt(300+1)) //generating 100 random nodes to test
+    var result :Seq[(Int,Seq[(Int,Float)])]  = for(i <- 0 to (nodes.size - 1))
+      yield (nodes(i), estimate_topten_neighbors(nodes(i),emb_in,emb_out,total_nodes))
+
+    sc.parallelize(result).map(x => (x._1, x._2.toSeq.map(x => x._1))).saveAsTextFile("test_epin")
 
   }
+
+
+
+  //****************************** FUNCTIONS**********************
 
   def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {
     spark.read.format("csv")
@@ -133,7 +148,7 @@ object   Node2vec {
     val rand = new UniformGenerator()
     val ind : Float = 1.0F
     val vals = Array.fill(emb_dim * total_nodes)(rand.nextValue().toFloat)
-     val mat = new DenseMatrix(emb_dim,total_nodes, vals)
+    val mat = new DenseMatrix(emb_dim,total_nodes, vals)
     return mat
   }
 
@@ -182,23 +197,25 @@ object   Node2vec {
 
   def update_gradients(mat_in: DenseMatrix[Float],mat_out:DenseMatrix[Float],emb_in: DenseMatrix[Float],
                        emb_out: DenseMatrix[Float], lr: Double): Unit ={
-
-    emb_in -= mat_in
-    emb_out -= mat_out
+    val alpha= lr.toFloat
+    emb_in -= (alpha * mat_in)
+    emb_out -= (alpha * mat_out)
   }
 
   def estimate_topten_neighbors(node : Int, emb_in: DenseMatrix[Float],
-                         emb_out: DenseMatrix[Float]): Seq[(Int, Float)] ={
+                         emb_out: DenseMatrix[Float],total_nodes:Int): Seq[(Int,Float)] ={
     var resultats = Map[Int, Float]()
-    for(i <- 0 to 40332){
+    for(i <- 0 to (total_nodes -1)){
       if(i == node){
 
       }else{
 
-         resultats += (i -> emb_in(::,node).t * emb_out(::,i))
+        resultats += (i -> emb_in(::,node).t * emb_out(::,i))
       }
 
     }
-    resultats.take(10).toSeq.sortBy(_._1).reverse
+    var res : Seq[(Int,Float)] = resultats.toSeq.sortBy(_._2).take(10).reverse
+
+    res
   }
 }

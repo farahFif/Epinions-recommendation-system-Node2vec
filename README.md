@@ -11,5 +11,4 @@ node2vec is the model that could be used to estimate the probability of an edge 
 
 #Team:
 Farah Atif
-Marina Ivanova
 Yan Konyshev
